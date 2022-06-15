@@ -2,8 +2,7 @@ local actions = require("telescope.actions")
 local sorters = require("telescope.sorters")
 require("telescope").setup{
   defaults = {
-    file_ignore_patterns = { ".cache", ".local", ".git", ".cargo", ".npm", ".pki", ".rustup",
-      "google%-chrome", "discord", "GIMP", "gtk%-2.0", "gtk%-3.0", "opt" },
+    file_ignore_patterns = { "qmk_firmware", ".git", "wallpapers" },
     mappings = {
       i = {
       },
