@@ -1,0 +1,3 @@
+[submodule "colorschemes/draculanvim"]
+	path = colorschemes/draculanvim
+	url = git@github.com:MonforteAdrian/draculanvim.git
