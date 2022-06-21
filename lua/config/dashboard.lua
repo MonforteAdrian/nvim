@@ -1,6 +1,11 @@
-vim.g.dashboard_default_executive = 'telescope'
+local db = require('dashboard')
 
-vim.g.dashboard_custom_header = {
+db.default_executive = 'telescope'
+
+db.custom_header = {
+[[                                                                                  ]],
+[[                                                                                  ]],
+[[                                                                                  ]],
 [[  =================     ===============     ===============   ========  ========  ]],
 [[  \\ . . . . . . .\\   //. . . . . . .\\   //. . . . . . .\\  \\. . .\\// . . //  ]],
 [[  ||. . ._____. . .|| ||. . ._____. . .|| ||. . ._____. . .|| || . . .\/ . . .||  ]],
@@ -20,14 +25,20 @@ vim.g.dashboard_custom_header = {
 [[  =='    _-'                        N E O V I M                         \/   `==  ]],
 [[  \   _-'                                                                `-_   /  ]],
 [[   `''                                                                      ``'   ]],
+[[                                                                                  ]],
 }
 
-vim.g.dashboard_custom_section = {
-  a = {description = {'  Find File    '}, command = 'Telescope find_files hidden=true'},
-  b = {description = {'  Find Image   '}, command = 'Telescope media_files'},
-  c = {description = {'  Recent Files '}, command = 'Telescope oldfiles hidden=true'},
-  d = {description = {'  Search Text  '}, command = 'Telescope live_grep hidden=true'},
-  e = {description = {'  Config       '}, command = 'Telescope find_files hidden=true cwd=~/.config/'}
+db.custom_center = {
+  {icon = ' ', desc = 'Find File    ', action = 'Telescope find_files hidden=true'},
+  {icon = ' ', desc = 'Find Image   ', action = 'Telescope media_files'},
+  {icon = ' ', desc = 'Recent Files ', action = 'Telescope oldfiles hidden=true'},
+  {icon = ' ', desc = 'Search Text  ', action = 'Telescope live_grep hidden=true'},
+  {icon = ' ', desc = 'Config       ', action = 'Telescope find_files hidden=true cwd=~/.config/'}
 }
 
-vim.g.dashboard_custom_footer = {'Do one thing, do it well - Unix Philosophy'}
+db.custom_footer = {'Do one thing, do it well - Unix Philosophy'}
+
+db.hide_statusline = true
+db.hide_tabline = true
+-- Highlight Group
+--DashboardHeader DashboardCenter DashboardCenterIcon DashboardShortCut DashboardFooter

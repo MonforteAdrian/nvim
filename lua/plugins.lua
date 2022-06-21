@@ -1,20 +1,24 @@
 require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+
   -- Dracula
-  --use 'dracula/vim'
   use '/home/adrian/.config/nvim/colorschemes/draculanvim'
+
   -- Icons required by lualine, tabline and nvim-tree
   use 'kyazdani42/nvim-web-devicons'
   -- PLenary required by Nvim-Tree and Neorg
   use 'nvim-lua/plenary.nvim'
+
   -- LSP
   use {
     'neovim/nvim-lspconfig',
     'williamboman/nvim-lsp-installer'
   }
   -- DAP
-  use 'mfussenegger/nvim-dap'
+  use {'rcarriga/nvim-dap-ui',
+    requires = {'mfussenegger/nvim-dap'}
+  }
   -- rust-tools
   use 'simrat39/rust-tools.nvim'
   -- cmp
@@ -28,12 +32,14 @@ require('packer').startup(function(use)
   -- snippets
   use 'L3MON4D3/LuaSnip'
   use 'saadparwaiz1/cmp_luasnip'
+
   -- Treesitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- LuaLine
   use 'nvim-lualine/lualine.nvim'
   -- TabLine
   use 'kdheepak/tabline.nvim'
+
   -- Nvim-tree
   use 'kyazdani42/nvim-tree.lua'
   -- ToggleTerm

@@ -38,4 +38,5 @@ require('config/telescope')
 require('config/dashboard')
 require('config/colorized')
 require('config/rust-tools')
+require('config/dapui')
 -- End loading
