@@ -22,21 +22,23 @@ end
 
 -- Start loading
 sys_init()
-require('packer_compiled')
+require "packer_compiled"
 packer_init()
-require('settings')
-require('keymappings')
-require('plugins')
-require('config/lsp')
-require('config/cmp')
-require('config/treesitter')
-require('config/lualine')
-require('config/tabline')
-require('config/nvimtree')
-require('config/toggleterm')
-require('config/telescope')
-require('config/dashboard')
-require('config/colorized')
-require('config/rust-tools')
-require('config/dapui')
+require "settings"
+require "keymappings"
+require "plugins"
+require "config/cmp"
+require "config/colorized"
+require "config/dap"
+require "config/dashboard"
+require "config/lsp"
+require "config/lualine"
+require "config/neogit"
+require "config/nvimtree"
+require "config/project"
+require "config/rust-tools"
+require "config/tabline"
+require "config/telescope"
+require "config/toggleterm"
+require "config/treesitter"
 -- End loading
