@@ -83,6 +83,8 @@ return packer.startup(function(use)
 
   -- Dashboard
   use 'glepnir/dashboard-nvim'
+  --
+  use 'nvim-neorg/neorg'
   -- VimWiki
   use 'vimwiki/vimwiki'
 
