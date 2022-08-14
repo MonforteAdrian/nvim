@@ -110,6 +110,7 @@ cmp.setup {
     { name = "buffer" },
     { name = "path" },
     { name = "crates" },
+    { name = "neorg" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
