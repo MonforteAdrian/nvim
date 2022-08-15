@@ -29,7 +29,7 @@ require'nvim-tree'.setup {
   },
   renderer = {
     indent_markers = {
-      enable = true,
+      enable = false,
       icons = {
         corner = "└",
         edge = "│ ",
@@ -37,6 +37,9 @@ require'nvim-tree'.setup {
       },
     },
     icons = {
+      show = {
+        folder_arrow = false,
+      },
       webdev_colors = true,
     },
   },
