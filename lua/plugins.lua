@@ -53,6 +53,7 @@ return packer.startup(function(use)
   use "ravenxrz/DAPInstall.nvim"
   -- Treesitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use 'nvim-treesitter/playground'
   -- rust-tools
   use 'simrat39/rust-tools.nvim'
   use { 'saecki/crates.nvim',
