@@ -32,3 +32,19 @@ require("project_nvim").setup{
   -- telescope
   datapath = vim.fn.stdpath("data"),
 }
+
+-- Path to the list of projects
+-- /home/adrian/.local/share/nvim/project_nvim
+--
+--/home/adrian/.config/dmenu
+--/home/adrian/.config/dwm
+--/home/adrian/.config/st
+--/home/adrian/rust_projects/little_projects/guessing_game
+--/home/adrian/vimwiki
+--/home/adrian/wiki
+--/home/adrian/my_game/my_plugin
+--/home/adrian/rust_projects/little_projects/algorithms_sort
+--/home/adrian/my_game
+--/home/adrian/.config/nvim/colorschemes/draculanvim
+--/home/adrian/.config/nvim
+--/home/adrian
