@@ -5,8 +5,8 @@ require('neorg').setup{
     ["core.norg.qol.toc"] = {},
     ["core.gtd.base"] = {
       config = {
-        workspace = "~/gtd",
-      }
+        workspace = "gtd",
+      },
     },
     ["core.gtd.helpers"] = {},
     ["core.gtd.ui"] = {},

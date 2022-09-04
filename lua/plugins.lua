@@ -85,7 +85,9 @@ return packer.startup(function(use)
   -- Dashboard
   use 'glepnir/dashboard-nvim'
   -- Neorg
-  use 'nvim-neorg/neorg'
+  use { 'nvim-neorg/neorg',
+    tag = '0.0.12',
+  }
   -- VimWiki
   use 'vimwiki/vimwiki'
 
