@@ -13,6 +13,8 @@ return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
   -- Dracula
   use '/home/adrian/.config/nvim/colorschemes/draculanvim'
+  use 'navarasu/onedark.nvim'
+  use 'NTBBloodbath/doom-one.nvim'
 
   -- Dependencies
   use 'kyazdani42/nvim-web-devicons'
@@ -50,14 +52,13 @@ return packer.startup(function(use)
   use 'mfussenegger/nvim-dap'
   use 'rcarriga/nvim-dap-ui'
   use 'theHamsta/nvim-dap-virtual-text'
-  use "ravenxrz/DAPInstall.nvim"
+  use 'nvim-telescope/telescope-dap.nvim'
   -- Treesitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'nvim-treesitter/playground'
   -- rust-tools
   use 'simrat39/rust-tools.nvim'
   use { 'saecki/crates.nvim',
-    tag = 'v0.2.1',
     config = function()
         require('crates').setup()
     end
@@ -79,15 +80,11 @@ return packer.startup(function(use)
   use 'nvim-telescope/telescope.nvim'
   use 'nvim-telescope/telescope-media-files.nvim'
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  -- Projects management
-  use 'ahmedkhalf/project.nvim'
 
   -- Dashboard
   use 'glepnir/dashboard-nvim'
   -- Neorg
-  use { 'nvim-neorg/neorg',
-    tag = '0.0.12',
-  }
+  use {'nvim-neorg/neorg', run = ":Neorg sync-parsers"}
   -- VimWiki
   use 'vimwiki/vimwiki'
 

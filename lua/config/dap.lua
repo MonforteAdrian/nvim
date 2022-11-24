@@ -1,14 +1,27 @@
-local dap = require "dap"
-local dapui = require "dapui"
-local daptext = require "nvim-dap-virtual-text"
-local dap_install = require "dap-install"
+local dap = require('dap')
+local dapui = require('dapui')
+require("nvim-dap-virtual-text").setup()
 
-dap_install.setup {}
-daptext.setup {}
-dap_install.config("codelldb", {})
+dap.adapters.cppdbg = {
+  id = 'cppdbg',
+  type = 'executable',
+  command = '/home/adrian/extension/debugAdapters/bin/OpenDebugAD7', -- adjust as needed, must be absolute path
+}
+dap.configurations.cpp = {
+  {
+    name = "Launch file",
+    type = "cppdbg",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopAtEntry = true,
+  },
+}
 
-dapui.setup{
-  icons = { expanded = "▾", collapsed = "▸" },
+dapui.setup({
+  icons = { expanded = "", collapsed = "", current_frame = "" },
   mappings = {
     -- Use a table to apply multiple mappings
     expand = { "<CR>", "<2-LeftMouse>" },
@@ -18,9 +31,17 @@ dapui.setup{
     repl = "r",
     toggle = "t",
   },
+  -- Use this to override mappings for specific elements
+  element_mappings = {
+    -- Example:
+    -- stacks = {
+    --   open = "<CR>",
+    --   expand = "o",
+    -- }
+  },
   -- Expand lines larger than the window
   -- Requires >= 0.7
-  expand_lines = vim.fn.has("nvim-0.7"),
+  expand_lines = vim.fn.has("nvim-0.7") == 1,
   -- Layouts define sections of the screen to place windows.
   -- The position can be "left", "right", "top" or "bottom".
   -- The size specifies the height/width depending on position. It can be an Int
@@ -42,10 +63,27 @@ dapui.setup{
     },
     {
       elements = {
+        "repl",
         "console",
       },
-      size = 7, -- 25% of total lines
+      size = 0.25, -- 25% of total lines
       position = "bottom",
+    },
+  },
+  controls = {
+    -- Requires Neovim nightly (or 0.8 when released)
+    enabled = true,
+    -- Display controls in this element
+    element = "repl",
+    icons = {
+      pause = "",
+      play = "",
+      step_into = "",
+      step_over = "",
+      step_out = "",
+      step_back = "",
+      run_last = "",
+      terminate = "",
     },
   },
   floating = {
@@ -59,18 +97,19 @@ dapui.setup{
   windows = { indent = 1 },
   render = {
     max_type_length = nil, -- Can be integer or nil.
+    max_value_lines = 100, -- Can be integer or nil.
   }
-}
-vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
+})
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
 end
-
+dap.listeners.before.disconnect["dapui_config"] = function()
+  dapui.close()
+end
 dap.listeners.before.event_terminated["dapui_config"] = function()
   dapui.close()
 end
-
 dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end

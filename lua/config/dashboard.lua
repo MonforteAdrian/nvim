@@ -30,7 +30,6 @@ db.custom_header = {
 
 db.custom_center = {
   {icon = ' ', desc = 'Find File    ', action = 'Telescope find_files hidden=true'},
-  {icon = ' ', desc = 'Find Project ', action = 'Telescope projects hidden=true initial_mode=normal'},
   {icon = ' ', desc = 'Find Image   ', action = 'Telescope media_files'},
   {icon = ' ', desc = 'Search Text  ', action = 'Telescope live_grep hidden=true'},
   {icon = ' ', desc = 'Config       ', action = 'Telescope find_files hidden=true cwd=~/.config/'}
