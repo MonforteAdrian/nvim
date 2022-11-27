@@ -1,7 +1,7 @@
 -- Start loading
-require "plugins"
 require "settings"
 require "keymappings"
+require "plugins"
 require "impatient"
 require "config/cmp"
 require "config/colorized"

@@ -11,8 +11,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
     "https://github.com/wbthomason/packer.nvim",
     install_path,
   })
-print("Installing packer close and reopen Neovim...")
-vim.cmd([[packadd packer.nvim]])
+  print("Installing packer close and reopen Neovim...")
+  vim.cmd([[packadd packer.nvim]])
 end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
@@ -35,7 +35,7 @@ packer.init({
     open_fn = function()
       return require("packer.util").float({ border = "rounded" })
     end,
-},
+  },
 })
 
 return packer.startup(function(use)
@@ -119,6 +119,16 @@ return packer.startup(function(use)
   use 'vimwiki/vimwiki'
 
   -- Utilities
+  use {
+    'folke/which-key.nvim',
+    config = function()
+      require("which-key").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
   use 'famiu/bufdelete.nvim'
   use 'norcalli/nvim-colorizer.lua'
   use 'lewis6991/impatient.nvim'
