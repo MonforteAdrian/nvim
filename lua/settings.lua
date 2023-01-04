@@ -1,6 +1,6 @@
 local cmd = vim.cmd
 local opt = vim.opt
-local indent = 2
+local indent = 4
 
 cmd 'syntax enable'
 --cmd 'colorscheme dracula'

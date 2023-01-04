@@ -52,12 +52,19 @@ return packer.startup(function(use)
   use 'nvim-lua/popup.nvim'
 
   -- NeoGit
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
   use 'TimUntersberger/neogit'
 
   -- LSP
   use {
     'neovim/nvim-lspconfig',
-    'williamboman/nvim-lsp-installer',
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
     'nvim-lua/lsp_extensions.nvim',
     'jose-elias-alvarez/null-ls.nvim',
     config = function()

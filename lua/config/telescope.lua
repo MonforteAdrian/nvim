@@ -2,7 +2,7 @@ local actions = require("telescope.actions")
 local sorters = require("telescope.sorters")
 require("telescope").setup{
   defaults = {
-    file_ignore_patterns = { "qmk_firmware", ".git", "wallpapers" },
+    file_ignore_patterns = { "qmk_firmware", ".mozilla", ".git", "Downloads", ".local", "wallpapers", ".cache" },
     mappings = {
       i = {
       },
@@ -11,7 +11,7 @@ require("telescope").setup{
   pickers = {
     sorter = sorters.get_generic_fuzzy_sorter(),
     find_files = {
-      find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
+      --find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
     },
   },
   extensions = {
