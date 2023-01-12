@@ -20,7 +20,7 @@ require'lualine'.setup {
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff',
+    lualine_b = {{'branch', icon = '' }, 'diff',
                   {'diagnostics', sources={'nvim_lsp', 'coc'}}},
     lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
@@ -29,7 +29,7 @@ require'lualine'.setup {
   },
   inactive_sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff',
+    lualine_b = {{'branch', icon = ''}, 'diff',
                   {'diagnostics', sources={'nvim_lsp', 'coc'}}},
     lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
