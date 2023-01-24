@@ -72,11 +72,6 @@ return packer.startup(function(use)
     end
   }
   use 'glepnir/lspsaga.nvim'
-  use { 'folke/trouble.nvim',
-    config = function()
-      require('trouble').setup()
-    end
-  }
   -- Completion
   use {
     'hrsh7th/cmp-nvim-lsp',
