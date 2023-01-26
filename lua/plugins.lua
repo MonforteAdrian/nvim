@@ -71,7 +71,6 @@ return packer.startup(function(use)
       require('lsp_extensions').setup()
     end
   }
-  use 'glepnir/lspsaga.nvim'
   -- Completion
   use {
     'hrsh7th/cmp-nvim-lsp',
