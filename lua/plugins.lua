@@ -41,8 +41,8 @@ packer.init({
 return packer.startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-  -- Dracula
-  --use '/home/adrian/.config/nvim/colorschemes/draculanvim'
+  -- colorschemes
+  use '/home/adrian/.config/nvim/colorschemes/draculanvim'
   use 'navarasu/onedark.nvim'
   use 'NTBBloodbath/doom-one.nvim'
 

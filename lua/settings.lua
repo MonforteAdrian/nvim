@@ -3,8 +3,8 @@ local opt = vim.opt
 local indent = 4
 
 cmd 'syntax enable'
---cmd 'colorscheme dracula'
-cmd 'colorscheme onedark'
+cmd 'colorscheme dracula'
+--cmd 'colorscheme onedark'
 --cmd 'colorscheme doom-one'
 cmd 'filetype plugin indent on'
 
