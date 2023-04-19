@@ -412,7 +412,6 @@ require('neorg').setup {
                 todo_items_match_color = "cancelled",
             },
         },
-        ["core.qol.toc"] = {},
         ["core.concealer"] = {},
         ["core.completion"] = {
             config = {

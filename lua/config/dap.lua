@@ -21,10 +21,10 @@ dap.configurations.cpp = {
 }
 
 dapui.setup({
-  icons = { expanded = "", collapsed = "", current_frame = "" },
+  icons = { expanded = "", collapsed = "", current_frame = "" },
   mappings = {
     -- Use a table to apply multiple mappings
-    expand = { "<CR>", "<2-LeftMouse>" },
+    expand = { "<CR>" },
     open = "o",
     remove = "d",
     edit = "e",
@@ -113,3 +113,6 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
+
+local hl = "DiagnosticError"
+vim.fn.sign_define('DapBreakpoint', {text='', texthl=hl, linehl='', numhl=''})

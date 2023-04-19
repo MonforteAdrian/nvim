@@ -2,9 +2,9 @@ local g = vim.g
 g.mapleader = ' '
 
 local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true, silent = true }
-  if opts then options = vim.tbl_extend('force', options, opts) end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    local options = { noremap = true, silent = true }
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 map('n', '<leader>h', '<C-w>h')
@@ -13,16 +13,15 @@ map('n', '<leader>k', '<C-w>k')
 map('n', '<leader>l', '<C-w>l')
 
 -- NvimTree
-map('n', '<leader>e', ':NvimTreeToggle<CR>')                -- Toggle NvimTree
+map('n', '<leader>e', ':NvimTreeToggle<CR>') -- Toggle NvimTree
 
 -- ToggleTerm
-map('n', '<leader>t', ':ToggleTerm<CR>')                    -- Open new terminal
-map('t', '<leader>t', '<Esc> && :q')                        -- Closes the terminal
+map('n', '<leader>t', ':ToggleTerm<CR>') -- Open new terminal
+map('t', '<leader>t', '<Esc> && :q')     -- Closes the terminal
 map('t', '<leader>k', '<C-\\><C-N><C-w>k')
 
 -- Telescope
 map('n', '<leader>ff', ':Telescope find_files hidden=true <CR>')
-map('n', '<leader>fp', ':Telescope projects hidden=true initial_mode=normal<CR>')
 map('n', '<leader>fi', ':Telescope media_files<CR>')
 map('n', '<leader>fg', ':Telescope live_grep<CR>')
 map('n', '<leader>fb', ':Telescope buffers hidden=true initial_mode=normal<CR>')

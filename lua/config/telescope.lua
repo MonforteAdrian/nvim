@@ -2,7 +2,7 @@ local telescope = require("telescope")
 local actions = require("telescope.actions")
 local sorters = require("telescope.sorters")
 
-telescope.setup{
+telescope.setup {
     defaults = {
         vimgrep_arguments = {
             "rg",
@@ -55,6 +55,7 @@ telescope.setup{
             --find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
         },
         buffers = {
+            sort_lastused = true,
             mappings = {
                 n = {
                     ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
@@ -66,7 +67,7 @@ telescope.setup{
         media_files = {
             -- filetypes whitelist
             -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-            filetypes = {"png", "webp", "jpg", "jpeg"},
+            filetypes = { "png", "webp", "jpg", "jpeg" },
             find_cmd = "rg" -- find command (defaults to `fd`)
         }
     }
