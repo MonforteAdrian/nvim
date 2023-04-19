@@ -21,7 +21,7 @@ map('t', '<leader>t', '<Esc> && :q')                        -- Closes the termin
 map('t', '<leader>k', '<C-\\><C-N><C-w>k')
 
 -- Telescope
-map('n', '<leader>f', ':Telescope find_files hidden=true<CR>')
+map('n', '<leader>ff', ':Telescope find_files hidden=true <CR>')
 map('n', '<leader>fp', ':Telescope projects hidden=true initial_mode=normal<CR>')
 map('n', '<leader>fi', ':Telescope media_files<CR>')
 map('n', '<leader>fg', ':Telescope live_grep<CR>')

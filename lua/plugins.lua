@@ -42,8 +42,10 @@ return packer.startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
   -- colorschemes
+  use { "catppuccin/nvim", as = "catppuccin" }
   use '/home/adrian/.config/nvim/colorschemes/draculanvim'
-  use 'navarasu/onedark.nvim'
+  use({ 'monsonjeremy/onedark.nvim', branch = 'treesitter' })
+  --use 'navarasu/onedark.nvim'
   use 'NTBBloodbath/doom-one.nvim'
 
   -- Dependencies
@@ -63,7 +65,7 @@ return packer.startup(function(use)
   -- LSP
   use {
     'neovim/nvim-lspconfig',
-    'williamboman/mason.nvim',
+    { 'williamboman/mason.nvim', run = ":MasonUpdate" },
     'williamboman/mason-lspconfig.nvim',
     'nvim-lua/lsp_extensions.nvim',
     'jose-elias-alvarez/null-ls.nvim',
@@ -100,8 +102,6 @@ return packer.startup(function(use)
 
   -- LuaLine
   use 'nvim-lualine/lualine.nvim'
-  -- TabLine
-  use 'kdheepak/tabline.nvim'
 
   -- Nvim-tree
   use 'kyazdani42/nvim-tree.lua'
@@ -133,9 +133,6 @@ return packer.startup(function(use)
   use 'famiu/bufdelete.nvim'
   use 'norcalli/nvim-colorizer.lua'
   use 'lewis6991/impatient.nvim'
-  use { "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
-  }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
