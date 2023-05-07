@@ -1,4 +1,4 @@
-require('dashboard').setup ({
+local db = require('dashboard')
 
 db.setup({
     theme = 'doom',
