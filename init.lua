@@ -1,20 +1,8 @@
--- Start loading
-require "plugins"
-require "config.catppuccin"
-require "settings"
-require "keymappings"
-require "impatient"
-require "config.cmp"
-require "config.colorized"
-require "config.dap"
-require "config.dashboard"
-require "config.lsp"
-require "config.lualine"
-require "config.neorg"
-require "config.neogit"
-require "config.nvimtree"
-require "config.rust-tools"
-require "config.telescope"
-require "config.toggleterm"
-require "config.treesitter"
--- End loading
+-- Handle plugins with lazy.nvim
+require("core.lazy")
+
+-- General Neovim keymaps
+require("core.keymaps")
+
+-- Other options
+require("core.options")
