@@ -4,7 +4,14 @@ return {
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "j-hui/fidget.nvim",
+            {
+                "j-hui/fidget.nvim",
+                tag = "legacy",
+                event = "LspAttach",
+                opts = {
+                    -- options
+                },
+            },
             "folke/neodev.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "nvim-tree/nvim-web-devicons",
@@ -136,6 +143,7 @@ return {
                                 [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                                 [vim.fn.stdpath("config") .. "/lua"] = true,
                             },
+                            checkThirdParty = false,
                         },
                     },
                 },
