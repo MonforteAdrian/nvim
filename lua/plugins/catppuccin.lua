@@ -29,15 +29,15 @@ return {
                 }
             end
 
-            local latte = require("catppuccin.palettes").get_palette "latte"
-            local frappe = require("catppuccin.palettes").get_palette "frappe"
-            local macchiato = require("catppuccin.palettes").get_palette "macchiato"
-            local mocha = require("catppuccin.palettes").get_palette "mocha"
+            local latte = require("catppuccin.palettes").get_palette("latte")
+            local frappe = require("catppuccin.palettes").get_palette("frappe")
+            local macchiato = require("catppuccin.palettes").get_palette("macchiato")
+            local mocha = require("catppuccin.palettes").get_palette("mocha")
 
             catppuccin.setup({
                 flavour = "macchiato", -- latte, frappe, macchiato, mocha
                 background = {
-                                       -- :h background
+                    -- :h background
                     light = "latte",
                     dark = "macchiato",
                 },
@@ -50,7 +50,7 @@ return {
                     percentage = 0.15,
                 },
                 no_italic = false, -- Force no italic
-                no_bold = false,   -- Force no bold
+                no_bold = false, -- Force no bold
                 styles = {
                     comments = { "italic" },
                     conditionals = { "italic" },
@@ -75,7 +75,6 @@ return {
                 },
                 integrations = {
                     cmp = true,
-                    dashboard = true,
                     gitsigns = true,
                     mason = true,
                     neogit = true,
