@@ -1,7 +1,8 @@
 return {
     "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { "luarocks.nvim" },
+    lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    version = "*", -- Pin Neorg to the latest stable release
     ft = "norg",
     config = function()
         require("neorg").setup({
@@ -432,7 +433,7 @@ return {
                             wiki = "~/wiki", -- Format: <name_of_workspace> = <path_to_workspace_root>
                             neorg_test = "~/test",
                         },
-                        autochdir = true, -- Automatically change the directory to the current workspace's root every time
+                        autochdir = true,     -- Automatically change the directory to the current workspace's root every time
                         index = "index.norg", -- The name of the main (root) .norg file
                     },
                 },
