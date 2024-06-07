@@ -10,12 +10,12 @@ return {
         },
     },
     keys = {
-        { "<leader>ff", "<cmd>Telescope find_files hidden=true <CR>",                 desc = "Find files" },
-        { "<leader>fi", "<cmd>Telescope media_files<CR>",                             desc = "Media files" },
-        { "<leader>fg", "<cmd>Telescope live_grep<CR>",                               desc = "Live grep" },
+        { "<leader>ff", "<cmd>Telescope find_files hidden=true <CR>", desc = "Find files" },
+        { "<leader>fi", "<cmd>Telescope media_files<CR>", desc = "Media files" },
+        { "<leader>fg", "<cmd>Telescope live_grep<CR>", desc = "Live grep" },
         { "<leader>fb", "<cmd>Telescope buffers hidden=true initial_mode=normal<CR>", desc = "Buffers" },
-        { "<leader>fh", "<cmd>Telescope help_tags hidden=true<CR>",                   desc = "help tags" },
-        { "<leader>gs", "<cmd>Telescope git_status hidden=true<CR>",                  desc = "git status" },
+        { "<leader>fh", "<cmd>Telescope help_tags hidden=true<CR>", desc = "help tags" },
+        { "<leader>gs", "<cmd>Telescope git_status hidden=true<CR>", desc = "git status" },
     },
     config = function()
         local telescope = require("telescope")
@@ -56,7 +56,15 @@ return {
                     preview_cutoff = 120,
                 },
                 file_sorter = sorters.get_fuzzy_file,
-                file_ignore_patterns = { "qmk_firmware", ".mozilla", ".git", ".local", "wallpapers", ".cache" },
+                file_ignore_patterns = {
+                    "target",
+                    "qmk_firmware",
+                    ".mozilla",
+                    ".git",
+                    ".local",
+                    "wallpapers",
+                    ".cache",
+                },
                 generic_sorter = sorters.get_generic_fuzzy_sorter,
                 path_display = { "truncate" },
                 winblend = 0,
@@ -73,6 +81,7 @@ return {
                 sorter = sorters.get_generic_fuzzy_sorter(),
                 find_files = {
                     --find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
+                    file_ignore_patterns = { "png", "webp", "jpg", "jpeg", "mp4", "gif" },
                 },
                 buffers = {
                     sort_lastused = true,
@@ -90,13 +99,13 @@ return {
                 media_files = {
                     -- filetypes whitelist
                     -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-                    filetypes = { "png", "webp", "jpg", "jpeg" },
+                    filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "gif" },
                     find_cmd = "rg", -- find command (defaults to `fd`)
                 },
             },
         })
 
-        telescope.load_extension("dap")
+        --telescope.load_extension("dap")
         telescope.load_extension("media_files")
     end,
 }

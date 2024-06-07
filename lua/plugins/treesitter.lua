@@ -7,9 +7,30 @@ return {
     config = function()
         local configs = require("nvim-treesitter.configs")
         configs.setup({
-            ensure_installed = { "c", "lua", "vim", "vimdoc", "cpp", "rust", "cmake", "dockerfile", "fish", "git_config",
-                "git_rebase", "gitattributes", "gitcommit", "gitignore", "json", "make", "norg", "proto", "python",
-                "qmldir", "qmljs", "regex", "toml", "diff", "ungrammar" },
+            ensure_installed = {
+                "c",
+                "lua",
+                "vim",
+                "vimdoc",
+                "cpp",
+                "rust",
+                "cmake",
+                "fish",
+                "git_config",
+                "git_rebase",
+                "gitattributes",
+                "gitcommit",
+                "gitignore",
+                "json",
+                "make",
+                "norg",
+                "proto",
+                "python",
+                "regex",
+                "toml",
+                "diff",
+                "ungrammar",
+            },
             sync_install = false,
             auto_install = true,
             ignore_install = { "" }, -- List of parsers to ignore installing
