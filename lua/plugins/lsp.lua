@@ -32,6 +32,7 @@ return {
                     "cmake",
                     "lua_ls",
                     "rust_analyzer",
+                    "jsonls",
                 },
                 automatic_installation = true,
             })
@@ -98,25 +99,26 @@ return {
             require("lspconfig")["bashls"].setup({})
             require("lspconfig")["clangd"].setup({})
             require("lspconfig")["cmake"].setup({})
-            -- Rust
-            require("lspconfig")["rust_analyzer"].setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-                settings = {
-                    ["rust_analyzer"] = {
-                        checkOnSave = {
-                            allFeatures = true,
-                            overrideCommand = {
-                                "cargo",
-                                "clippy",
-                                "--workspace",
-                                "--all-targets",
-                                "--all-features",
-                            },
-                        },
-                    },
-                },
-            })
+            require("lspconfig")["jsonls"].setup({})
+            ---- Rust
+            --require("lspconfig")["rust_analyzer"].setup({
+            --    on_attach = on_attach,
+            --    capabilities = capabilities,
+            --    settings = {
+            --        ["rust_analyzer"] = {
+            --            checkOnSave = {
+            --                allFeatures = true,
+            --                overrideCommand = {
+            --                    "cargo",
+            --                    "clippy",
+            --                    "--workspace",
+            --                    "--all-targets",
+            --                    "--all-features",
+            --                },
+            --            },
+            --        },
+            --    },
+            --})
 
             -- Lua
             require("lspconfig")["lua_ls"].setup({
