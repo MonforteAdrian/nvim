@@ -44,10 +44,6 @@ return {
                     fidget = true,
                     gitsigns = true,
                     mason = true,
-                    mini = {
-                        enabled = true,
-                        indentscope_color = "", -- catppuccin color (eg. `lavender`) Default: text
-                    },
                     native_lsp = {
                         enabled = true,
                         virtual_text = {
@@ -68,6 +64,7 @@ return {
                             background = true,
                         },
                     },
+                    neotest = true,
                     telescope = {
                         enabled = true,
                         style = "nvchad",

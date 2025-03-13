@@ -28,6 +28,7 @@ return {
                 "python",
                 "regex",
                 "toml",
+                "ron",
                 "diff",
                 "ungrammar",
             },

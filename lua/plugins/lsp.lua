@@ -1,11 +1,17 @@
+local map = vim.keymap.set
 return {
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            "williamboman/mason.nvim",
+            {
+                "williamboman/mason.nvim",
+                cmd = "Mason",
+                keys = { { "<leader>M", "<cmd>Mason<cr>", desc = "Mason" } },
+                build = ":MasonUpdate",
+            },
+            "jay-babu/mason-nvim-dap.nvim",
             "williamboman/mason-lspconfig.nvim",
             "j-hui/fidget.nvim",
-            "folke/neodev.nvim",
             "hrsh7th/cmp-nvim-lsp",
             "nvim-tree/nvim-web-devicons",
         },
@@ -31,18 +37,16 @@ return {
                     "clangd",
                     "cmake",
                     "lua_ls",
-                    "rust_analyzer",
                     "jsonls",
+                    "taplo",
                 },
                 automatic_installation = true,
             })
 
-            -- Quick access via keymap
-            require("helpers.keys").map("n", "<leader>M", "<cmd>Mason<cr>", "Show Mason")
-
-            -- Neodev setup before LSP config
-            require("neodev").setup()
-
+            require("mason-nvim-dap").setup({
+                ensure_installed = { "codelldb", "stylua", "shfmt" },
+                automatic_installation = true,
+            })
             -- Turn on LSP status information
             require("fidget").setup()
 
@@ -73,23 +77,21 @@ return {
 
             -- This function gets run when an LSP connects to a particular buffer.
             local on_attach = function(client, bufnr)
-                local lsp_map = require("helpers.keys").lsp_map
+                local function opts(desc)
+                    return { buffer = bufnr, desc = "LSP " .. desc }
+                end
 
-                lsp_map("<leader>lr", vim.lsp.buf.rename, bufnr, "Rename symbol")
-                lsp_map("<leader>la", vim.lsp.buf.code_action, bufnr, "Code action")
-                lsp_map("<leader>ld", vim.lsp.buf.type_definition, bufnr, "Type definition")
-                lsp_map("<leader>ls", require("telescope.builtin").lsp_document_symbols, bufnr, "Document symbols")
-
-                lsp_map("gd", vim.lsp.buf.definition, bufnr, "Goto Definition")
-                lsp_map("gr", require("telescope.builtin").lsp_references, bufnr, "Goto References")
-                lsp_map("gI", vim.lsp.buf.implementation, bufnr, "Goto Implementation")
-                lsp_map("K", vim.lsp.buf.hover, bufnr, "Hover Documentation")
-                lsp_map("gD", vim.lsp.buf.declaration, bufnr, "Goto Declaration")
-
-                -- Create a command `:Format` local to the LSP buffer
-                vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-                    vim.lsp.buf.format()
-                end, { desc = "Format current buffer with LSP" })
+                map("n", "gD", vim.lsp.buf.declaration, opts "Goto Declaration")
+                map("n", "gd", vim.lsp.buf.definition, opts "Goto Definition")
+                -- TODO keep using telescope?
+                map("n", "gr", require("telescope.builtin").lsp_references, opts "Goto References")
+                map("n", "gI", vim.lsp.buf.implementation, opts "Goto Implementation")
+                map("n", "gy", vim.lsp.buf.type_definition, opts "Type definition")
+                map("n", "K", vim.lsp.buf.hover, opts "Hover Documentation")
+                map("n", "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
+                -- TODO keep looking lazyvim mappings
+                map("n", "<leader>lr", vim.lsp.buf.rename, opts "Rename symbol")
+                map("n", "<leader>ls", require("telescope.builtin").lsp_document_symbols, opts "Document symbols")
             end
 
             -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -100,6 +102,7 @@ return {
             require("lspconfig")["clangd"].setup({})
             require("lspconfig")["cmake"].setup({})
             require("lspconfig")["jsonls"].setup({})
+            require("lspconfig")["taplo"].setup({})
             ---- Rust
             --require("lspconfig")["rust_analyzer"].setup({
             --    on_attach = on_attach,
@@ -119,7 +122,6 @@ return {
             --        },
             --    },
             --})
-
             -- Lua
             require("lspconfig")["lua_ls"].setup({
                 on_attach = on_attach,
