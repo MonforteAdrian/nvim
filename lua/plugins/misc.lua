@@ -33,5 +33,34 @@ return {
         },
       })
     end,
+  },
+  {
+    'fei6409/log-highlight.nvim',
+    config = function()
+      require('log-highlight').setup {}
+    end,
+  },
+  -- AI
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        panel = {
+          enable = false
+        },
+        suggestion = {
+          enable = false
+        },
+      })
+    end,
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function()
+      require("copilot_cmp").setup()
+    end
   }
+
 }

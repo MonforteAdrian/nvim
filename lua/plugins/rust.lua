@@ -3,7 +3,7 @@ return {
   --rustup component add rust-analyzer
   {
     "mrcjkb/rustaceanvim",
-    version = "^5", -- Recommended
+    version = "^6", -- Recommended
     lazy = false,
     init = function()
       vim.g.rustaceanvim = {
