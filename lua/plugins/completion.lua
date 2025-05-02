@@ -58,6 +58,12 @@ return {
           score_offset = 100,
           async = true,
         },
+        path = {
+          -- Path sources triggered by "/" interfere with CopilotChat commands
+          enabled = function()
+            return vim.bo.filetype ~= "copilot-chat"
+          end,
+        },
       },
     },
 

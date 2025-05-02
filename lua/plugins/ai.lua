@@ -26,6 +26,12 @@ return {
     },
     build = "make tiktoken",                          -- Only on MacOS or Linux
     opts = function()
+      -- Adjust chat display settings
+      require('CopilotChat').setup({
+        highlight_headers = false,
+        separator = '---',
+        error_header = '> [!ERROR] Error',
+      })
       local user = vim.env.USER or "User"
       user = user:sub(1, 1):upper() .. user:sub(2)
       return {

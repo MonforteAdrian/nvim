@@ -40,4 +40,17 @@ return {
       require('log-highlight').setup {}
     end,
   },
+  -- markdown viewer
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    config = function()
+      -- Register copilot-chat filetype
+      require('render-markdown').setup({
+        file_types = { 'markdown', 'copilot-chat' },
+      })
+    end,
+  }
 }
