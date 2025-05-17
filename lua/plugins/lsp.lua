@@ -74,58 +74,43 @@ return {
       }
       vim.diagnostic.config(config)
 
+      local disable_semantic_tokens = {
+        lua = true,
+      }
+
       -- This function gets run when an LSP connects to a particular buffer.
-      local on_attach = function(client, bufnr)
-        local function opts(desc)
-          return { buffer = bufnr, desc = "LSP " .. desc }
-        end
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local bufnr = args.buf
+          local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
 
-        map("n", "gD", vim.lsp.buf.declaration, opts "Goto Declaration")
-        map("n", "gd", vim.lsp.buf.definition, opts "Goto Definition")
-        -- TODO keep using telescope?
-        map("n", "gr", require("telescope.builtin").lsp_references, opts "Goto References")
-        map("n", "gI", vim.lsp.buf.implementation, opts "Goto Implementation")
-        map("n", "gy", vim.lsp.buf.type_definition, opts "Type definition")
-        map("n", "K", vim.lsp.buf.hover, opts "Hover Documentation")
-        map("n", "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
-        -- TODO keep looking lazyvim mappings
-        map("n", "<leader>lr", vim.lsp.buf.rename, opts "Rename symbol")
-        map("n", "<leader>ls", require("telescope.builtin").lsp_document_symbols, opts "Document symbols")
-      end
+          map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
+          map("n", "gd", vim.lsp.buf.definition, { desc = "Goto Definition" })
+          -- TODO keep using telescope?
+          map("n", "gr", require("telescope.builtin").lsp_references, { desc = "Goto References" })
+          map("n", "gI", vim.lsp.buf.implementation, { desc = "Goto Implementation" })
+          map("n", "gy", vim.lsp.buf.type_definition, { desc = "Type definition" })
+          map("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
+          map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
+          -- TODO keep looking lazyvim mappings
+          map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename symbol" })
+          map("n", "<leader>ls", require("telescope.builtin").lsp_document_symbols, { desc = "Document symbols" })
 
-      ---- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-      --local capabilities = vim.lsp.protocol.make_client_capabilities()
-      --capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+          local filetype = vim.bo[bufnr].filetype
+          if disable_semantic_tokens[filetype] then
+            client.server_capabilities.semanticTokensProvider = nil
+          end
+        end,
+      })
 
-      require("lspconfig")["bashls"].setup({})
-      require("lspconfig")["clangd"].setup({})
-      require("lspconfig")["cmake"].setup({})
-      require("lspconfig")["jsonls"].setup({})
-      require("lspconfig")["taplo"].setup({})
-      ---- Rust
-      --require("lspconfig")["rust_analyzer"].setup({
-      --    on_attach = on_attach,
-      --    capabilities = capabilities,
-      --    settings = {
-      --        ["rust_analyzer"] = {
-      --            checkOnSave = {
-      --                allFeatures = true,
-      --                overrideCommand = {
-      --                    "cargo",
-      --                    "clippy",
-      --                    "--workspace",
-      --                    "--all-targets",
-      --                    "--all-features",
-      --                },
-      --            },
-      --        },
-      --    },
-      --})
+      vim.lsp.enable('bashls')
+      vim.lsp.enable('clangd')
+      vim.lsp.enable('cmake')
+      vim.lsp.enable('jsonls')
+      vim.lsp.enable('taplo')
+      vim.lsp.enable('copilot-lsanguage-server')
       -- Lua
-      require("lspconfig")["lua_ls"].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-
+      vim.lsp.config('lua_ls', {
         settings = {
           Lua = {
             diagnostics = {
@@ -141,6 +126,7 @@ return {
           },
         },
       })
+      vim.lsp.enable('lua_ls')
     end,
   },
 }
