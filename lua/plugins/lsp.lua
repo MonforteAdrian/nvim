@@ -39,7 +39,8 @@ return {
           "jsonls",
           "taplo",
         },
-        automatic_installation = true,
+        -- 2.x: auto-enables installed servers via vim.lsp.enable() — no manual calls needed.
+        automatic_enable = true,
       })
 
       require("mason-nvim-dap").setup({
@@ -49,30 +50,34 @@ return {
       -- Turn on LSP status information
       require("fidget").setup()
 
-      -- Set up cool signs for diagnostics
-      local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-      for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-      end
+      -- Wire blink.cmp's enhanced LSP capabilities into every server.
+      vim.lsp.config("*", {
+        capabilities = require("blink.cmp").get_lsp_capabilities(),
+      })
 
-      -- Diagnostic config
-      local config = {
+      -- Diagnostic config (signs + virtual_text + float)
+      vim.diagnostic.config({
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = " ",
+            [vim.diagnostic.severity.WARN] = " ",
+            [vim.diagnostic.severity.HINT] = " ",
+            [vim.diagnostic.severity.INFO] = " ",
+          },
+        },
         virtual_text = true,
-        signs = true,
-        update_in_insert = true,
+        update_in_insert = false,
         underline = true,
-        severity_sort = false,
+        severity_sort = true,
         float = {
           focusable = true,
           style = "minimal",
           border = "rounded",
-          source = "always",
+          source = true,
           header = "",
           prefix = "",
         },
-      }
-      vim.diagnostic.config(config)
+      })
 
       local disable_semantic_tokens = {
         lua = true,
@@ -86,15 +91,15 @@ return {
 
           map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
           map("n", "gd", vim.lsp.buf.definition, { desc = "Goto Definition" })
-          -- TODO keep using telescope?
-          map("n", "gr", require("telescope.builtin").lsp_references, { desc = "Goto References" })
+          map("n", "gr", vim.lsp.buf.references, { desc = "References" })
           map("n", "gI", vim.lsp.buf.implementation, { desc = "Goto Implementation" })
           map("n", "gy", vim.lsp.buf.type_definition, { desc = "Type definition" })
           map("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
           map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
-          -- TODO keep looking lazyvim mappings
-          map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename symbol" })
-          map("n", "<leader>ls", require("telescope.builtin").lsp_document_symbols, { desc = "Document symbols" })
+          map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename symbol" })
+          if client:supports_method("textDocument/codeLens") then
+            map({ "n", "x" }, "<leader>cc", vim.lsp.codelens.run, { buffer = bufnr, desc = "Run Codelens" })
+          end
 
           local filetype = vim.bo[bufnr].filetype
           if disable_semantic_tokens[filetype] then
@@ -103,30 +108,18 @@ return {
         end,
       })
 
-      vim.lsp.enable('bashls')
-      vim.lsp.enable('clangd')
-      vim.lsp.enable('cmake')
-      vim.lsp.enable('jsonls')
-      vim.lsp.enable('taplo')
-      vim.lsp.enable('copilot-lsanguage-server')
-      -- Lua
-      vim.lsp.config('lua_ls', {
+      -- bashls / clangd / cmake / jsonls / taplo are auto-enabled by mason-lspconfig 2.x.
+      -- Only servers needing custom settings stay below.
+
+      -- Lua: lazydev.nvim handles workspace.library + globals dynamically,
+      -- so the per-server config is intentionally minimal here.
+      vim.lsp.config("lua_ls", {
         settings = {
           Lua = {
-            diagnostics = {
-              globals = { "vim" },
-            },
-            workspace = {
-              library = {
-                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                [vim.fn.stdpath("config") .. "/lua"] = true,
-              },
-              checkThirdParty = false,
-            },
+            workspace = { checkThirdParty = false },
           },
         },
       })
-      vim.lsp.enable('lua_ls')
     end,
   },
 }

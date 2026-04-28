@@ -1,20 +1,15 @@
 -- TODO do or don't do this
 local bufnr = vim.api.nvim_get_current_buf()
-vim.keymap.set(
-  "n",
-  "<leader>a",
-  function()
-    vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
-    -- or vim.lsp.buf.codeAction() if you don't want grouping.
-  end,
-  { silent = true, buffer = bufnr, desc = "Code Action" }
-)
+vim.keymap.set("n", "<leader>a", function()
+  vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
+  -- or vim.lsp.buf.codeAction() if you don't want grouping.
+end, { silent = true, buffer = bufnr, desc = "Code Action" })
 
 vim.keymap.set(
   "n",
   "K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
   function()
-    vim.cmd.RustLsp({ 'hover', 'actions' })
+    vim.cmd.RustLsp({ "hover", "actions" })
   end,
   { silent = true, buffer = bufnr, desc = "Hover Documentation" }
 )
@@ -73,56 +68,26 @@ vim.keymap.set(
   { silent = true, buffer = bufnr, desc = "Signature help" }
 )
 
-vim.keymap.set(
-  "n",
-  "<leader>rd",
-  function()
-    vim.cmd.RustLsp({ 'debuggables', bang = true })
-  end,
-  { silent = true, buffer = bufnr }
-)
+vim.keymap.set("n", "<leader>rd", function()
+  vim.cmd.RustLsp({ "debuggables", bang = true })
+end, { silent = true, buffer = bufnr })
 
-vim.keymap.set(
-  "n",
-  "<leader>rr",
-  function()
-    vim.cmd.RustLsp({ 'runnables', bang = true })
-  end,
-  { silent = true, buffer = bufnr }
-)
+vim.keymap.set("n", "<leader>rr", function()
+  vim.cmd.RustLsp({ "runnables", bang = true })
+end, { silent = true, buffer = bufnr })
 
-vim.keymap.set(
-  "n",
-  "<leader>rt",
-  function()
-    vim.cmd.RustLsp({ 'testables' })
-  end,
-  { silent = true, buffer = bufnr }
-)
+vim.keymap.set("n", "<leader>rt", function()
+  vim.cmd.RustLsp({ "testables" })
+end, { silent = true, buffer = bufnr })
 
-vim.keymap.set(
-  "n",
-  "<A-j>",
-  function()
-    vim.cmd.RustLsp({ 'moveItem', 'down' })
-  end,
-  { silent = true, buffer = bufnr }
-)
+vim.keymap.set("n", "<A-j>", function()
+  vim.cmd.RustLsp({ "moveItem", "down" })
+end, { silent = true, buffer = bufnr })
 
-vim.keymap.set(
-  "n",
-  "<A-k>",
-  function()
-    vim.cmd.RustLsp({ 'moveItem', 'up' })
-  end,
-  { silent = true, buffer = bufnr }
-)
+vim.keymap.set("n", "<A-k>", function()
+  vim.cmd.RustLsp({ "moveItem", "up" })
+end, { silent = true, buffer = bufnr })
 
-vim.keymap.set(
-  "n",
-  "<leader>re",
-  function()
-    vim.cmd.RustLsp({ 'renderDiagnostic' })
-  end,
-  { silent = true, buffer = bufnr }
-)
+vim.keymap.set("n", "<leader>re", function()
+  vim.cmd.RustLsp({ "renderDiagnostic" })
+end, { silent = true, buffer = bufnr })

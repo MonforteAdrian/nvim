@@ -1,7 +1,7 @@
 return {
   "nvim-neorg/neorg",
   dependencies = { "luarocks.nvim", "benlubas/neorg-interim-ls" },
-  lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+  lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
   version = "*", -- Pin Neorg to the latest stable release
   ft = "norg",
   config = function()
@@ -19,7 +19,7 @@ return {
               wiki = "~/wiki", -- Format: <name_of_workspace> = <path_to_workspace_root>
               neorg_test = "~/test",
             },
-            autochdir = true,     -- Automatically change the directory to the current workspace's root every time
+            autochdir = true, -- Automatically change the directory to the current workspace's root every time
             index = "index.norg", -- The name of the main (root) .norg file
           },
         },
@@ -47,9 +47,9 @@ return {
                 -- Note that this will change with your workspace, so it fails silently if the file
                 -- doesn't exist
                 path = "people",
-              }
-            }
-          }
+              },
+            },
+          },
         },
         ["core.highlights"] = {
           config = {
@@ -462,7 +462,6 @@ return {
             todo_items_match_color = "cancelled",
           },
         },
-
       },
     })
   end,

@@ -3,13 +3,12 @@ return {
   --rustup component add rust-analyzer
   {
     "mrcjkb/rustaceanvim",
-    version = "^6", -- Recommended
+    version = "^7", -- Recommended
     lazy = false,
     init = function()
       vim.g.rustaceanvim = {
         -- Plugin configuration
-        tools = {
-        },
+        tools = {},
         -- LSP configuration
         server = {
           on_attach = function(client, bufnr)
@@ -17,15 +16,13 @@ return {
           end,
           default_settings = {
             -- rust-analyzer language server configuration
-            ['rust-analyzer'] = {
-            },
+            ["rust-analyzer"] = {},
           },
         },
         -- DAP configuration
-        dap = {
-        },
+        dap = {},
       }
-    end
+    end,
   },
   {
     "saecki/crates.nvim",
@@ -39,16 +36,15 @@ return {
     dependencies = {
       "nvim-neotest/nvim-nio",
       "nvim-lua/plenary.nvim",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-treesitter/nvim-treesitter"
+      "nvim-treesitter/nvim-treesitter",
     },
     priority = 1,
     config = function()
-      require('neotest').setup({
+      require("neotest").setup({
         adapters = {
-          require('rustaceanvim.neotest')
+          require("rustaceanvim.neotest"),
         },
       })
     end,
-  }
+  },
 }

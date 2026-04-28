@@ -21,36 +21,48 @@ return {
   },
   {
     "stevearc/conform.nvim",
-    opts = function()
-      require("conform").setup({
-        formatters_by_ft = {
-          markdown = { "prettierd", "prettier", stop_after_first = true },
-        },
-        format_on_save = {
-          -- These options will be passed to conform.format()
-          timeout_ms = 500,
-          lsp_format = "fallback",
-        },
-      })
-    end,
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      formatters_by_ft = {
+        markdown = { "prettierd", "prettier", stop_after_first = true },
+      },
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_format = "fallback",
+      },
+    },
   },
   {
-    'fei6409/log-highlight.nvim',
+    "fei6409/log-highlight.nvim",
     config = function()
-      require('log-highlight').setup {}
+      require("log-highlight").setup({})
     end,
   },
   -- markdown viewer
   {
-    'MeanderingProgrammer/render-markdown.nvim',
+    "MeanderingProgrammer/render-markdown.nvim",
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
     config = function()
       -- Register copilot-chat filetype
-      require('render-markdown').setup({
-        file_types = { 'markdown', 'copilot-chat' },
+      require("render-markdown").setup({
+        file_types = { "markdown", "copilot-chat" },
       })
     end,
-  }
+  },
+  -- Mermaid diagram viewer using web browser
+  {
+    "selimacerbas/markdown-preview.nvim",
+    dependencies = { "selimacerbas/live-server.nvim" },
+    config = function()
+      require("markdown_preview").setup({
+        -- all optional; sane defaults shown
+        instance_mode = "takeover", -- "takeover" (one tab) or "multi" (tab per instance)
+        port = 0, -- 0 = auto (8421 for takeover, OS-assigned for multi)
+        open_browser = true,
+        debounce_ms = 300,
+      })
+    end,
+  },
 }

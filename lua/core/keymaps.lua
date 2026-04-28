@@ -9,9 +9,9 @@ map("n", "<leader>j", "<C-w>j", { desc = "switch window down" })
 map("n", "<leader>k", "<C-w>k", { desc = "switch window up" })
 map("n", "<leader>l", "<C-w>l", { desc = "switch window right" })
 
--- lsp format
-map("n", "<leader>fm", function()
-    vim.cmd('lua vim.lsp.buf.format() ')
+-- format
+map("n", "<leader>cf", function()
+  require("conform").format({ async = true, lsp_format = "fallback" })
 end, { desc = "Format" })
 
 -- global lsp mappings

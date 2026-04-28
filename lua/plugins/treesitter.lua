@@ -1,64 +1,66 @@
+-- nvim-treesitter `main` branch (rewrite, required for Neovim 0.12+).
+-- Requires `tree-sitter-cli` (>= 0.26.1) and a C compiler available in $PATH.
+-- The old `master` branch API (require("nvim-treesitter.configs").setup{...})
+-- no longer applies; highlight/fold/indent must be enabled per-buffer.
+
+local ensure_installed = {
+  "bash",
+  "c",
+  "cmake",
+  "cpp",
+  "diff",
+  "fish",
+  "git_config",
+  "git_rebase",
+  "gitattributes",
+  "gitcommit",
+  "gitignore",
+  "json",
+  "lua",
+  "make",
+  "markdown",
+  "markdown_inline",
+  "proto",
+  "python",
+  "regex",
+  "ron",
+  "rust",
+  "toml",
+  "ungrammar",
+  "vim",
+  "vimdoc",
+}
+
 return {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    dependencies = {
-        "nvim-treesitter/playground",
-    },
-    config = function()
-        local configs = require("nvim-treesitter.configs")
-        configs.setup({
-            ensure_installed = {
-                "c",
-                "lua",
-                "vim",
-                "vimdoc",
-                "cpp",
-                "rust",
-                "cmake",
-                "fish",
-                "git_config",
-                "git_rebase",
-                "gitattributes",
-                "gitcommit",
-                "gitignore",
-                "json",
-                "make",
-                "norg",
-                "proto",
-                "python",
-                "regex",
-                "toml",
-                "ron",
-                "diff",
-                "ungrammar",
-            },
-            sync_install = false,
-            auto_install = true,
-            ignore_install = { "" }, -- List of parsers to ignore installing
-            highlight = {
-                enable = true,       -- false will disable the whole extension
-                disable = { "" },    -- list of language that will be disabled
-                additional_vim_regex_highlighting = true,
-            },
-            indent = { enable = true },
-            playground = {
-                enable = true,
-                disable = {},
-                updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
-                persist_queries = false, -- Whether the query persists across vim sessions
-                keybindings = {
-                    toggle_query_editor = "o",
-                    toggle_hl_groups = "i",
-                    toggle_injected_languages = "t",
-                    toggle_anonymous_nodes = "a",
-                    toggle_language_display = "I",
-                    focus_language = "f",
-                    unfocus_language = "F",
-                    update = "R",
-                    goto_node = "<cr>",
-                    show_help = "?",
-                },
-            },
-        })
-    end,
+  "nvim-treesitter/nvim-treesitter",
+  branch = "main",
+  lazy = false, -- main branch does not support lazy-loading
+  build = ":TSUpdate",
+  config = function()
+    require("nvim-treesitter").setup({
+      install_dir = vim.fn.stdpath("data") .. "/site",
+    })
+
+    require("nvim-treesitter").install(ensure_installed)
+
+    vim.api.nvim_create_autocmd("FileType", {
+      group = vim.api.nvim_create_augroup("UserTreesitter", { clear = true }),
+      callback = function(args)
+        local buf = args.buf
+        local ft = vim.bo[buf].filetype
+        local lang = vim.treesitter.language.get_lang(ft) or ft
+        if not lang or lang == "" then
+          return
+        end
+        if not pcall(vim.treesitter.start, buf, lang) then
+          return
+        end
+
+        vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.wo[0][0].foldmethod = "expr"
+
+        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end,
+    })
+  end,
 }

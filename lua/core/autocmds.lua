@@ -2,20 +2,6 @@ local autocmd = vim.api.nvim_create_autocmd
 local cmd = vim.cmd
 local opt_local = vim.opt_local
 
--- lsp format on save
-autocmd("BufWritePre", {
-  callback = function()
-    cmd('lua vim.lsp.buf.format() ')
-  end
-})
-
-autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    require("conform").format({ bufnr = args.buf })
-  end,
-})
-
 -- resize splits if window got resized
 autocmd({ "VimResized" }, {
   callback = function()
@@ -38,12 +24,12 @@ autocmd("FileType", {
 autocmd({ "BufNewFile", "BufRead" }, {
   callback = function()
     cmd("setlocal formatoptions-=cro")
-  end
+  end,
 })
 
 -- Highlight on yank
 autocmd("TextYankPost", {
   callback = function()
-    (vim.hl or vim.highlight).on_yank()
+    vim.hl.on_yank()
   end,
 })

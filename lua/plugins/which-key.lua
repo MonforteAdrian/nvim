@@ -1,15 +1,29 @@
 return {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    init = function()
-        vim.o.timeout = true
-        vim.o.timeoutlen = 300
+  "folke/which-key.nvim",
+  event = "VeryLazy",
+  opts = {
+    preset = "classic",
+    delay = function(ctx)
+      return ctx.plugin and 0 or 300
     end,
-    config = function()
-        require("which-key").setup({
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        })
-    end,
+    spec = {
+      { "<leader>f", group = "find / format" },
+      { "<leader>g", group = "git" },
+      { "<leader>c", group = "code lsp", mode = { "n", "v" } },
+      { "<leader>d", group = "diagnostics" },
+      { "<leader>r", group = "rust" },
+      { "<leader>L", desc = "Lazy" },
+      { "<leader>M", desc = "Mason" },
+      { "<leader>p", desc = "Copilot NES: accept & goto" },
+    },
+  },
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show({ global = false })
+      end,
+      desc = "Buffer-local keymaps (which-key)",
+    },
+  },
 }

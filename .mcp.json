@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "lua-lsp": {
+      "type": "local",
+      "command": "/home/adrian/go/bin/mcp-language-server",
+      "args": [
+        "--workspace",
+        "/home/adrian/.config/nvim",
+        "--lsp",
+        "/home/adrian/.local/share/nvim/mason/bin/lua-language-server"
+      ]
+    }
+  }
+}
