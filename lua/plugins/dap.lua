@@ -11,7 +11,62 @@ return {
       local dap = require("dap")
       local ui = require("dapui")
 
-      require("dapui").setup()
+      require("dapui").setup({
+        layouts = {
+          {
+            elements = {
+              { id = "scopes", size = 0.375 },
+              { id = "breakpoints", size = 0.125 },
+              { id = "stacks", size = 0.25 },
+              { id = "watches", size = 0.25 },
+            },
+            size = 60,
+            position = "left",
+          },
+          {
+            elements = {
+              { id = "console", size = 1.0 },
+            },
+            size = 15,
+            position = "bottom",
+          },
+          {
+            elements = {
+              { id = "repl", size = 1.0 },
+            },
+            size = 8,
+            position = "bottom",
+          },
+        },
+      })
+
+      -- Show a title in each DAP UI window via winbar
+      -- (REPL is intentionally omitted: dap-ui already puts the play/step controls in its winbar)
+      local dapui_titles = {
+        dapui_scopes = "  Scopes",
+        dapui_breakpoints = "  Breakpoints",
+        dapui_stacks = "  Stacks",
+        dapui_watches = "  Watches",
+        dapui_console = "  Console",
+      }
+      local function apply_dapui_titles()
+        vim.schedule(function()
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            local ok, buf = pcall(vim.api.nvim_win_get_buf, win)
+            if ok then
+              local title = dapui_titles[vim.bo[buf].filetype]
+              if title then
+                pcall(
+                  vim.api.nvim_set_option_value,
+                  "winbar",
+                  "%#Title#" .. title .. "%*",
+                  { scope = "local", win = win }
+                )
+              end
+            end
+          end
+        end)
+      end
 
       require("nvim-dap-virtual-text").setup()
 
@@ -104,9 +159,11 @@ return {
 
       dap.listeners.before.attach.dapui_config = function()
         ui.open()
+        apply_dapui_titles()
       end
       dap.listeners.before.launch.dapui_config = function()
         ui.open()
+        apply_dapui_titles()
       end
       dap.listeners.before.event_terminated.dapui_config = function()
         ui.close()
