@@ -6,10 +6,20 @@ return {
       "theHamsta/nvim-dap-virtual-text",
       "nvim-neotest/nvim-nio",
       "williamboman/mason.nvim",
+      { url = "https://codeberg.org/Jorenar/nvim-dap-disasm.git" },
     },
     config = function()
       local dap = require("dap")
       local ui = require("dapui")
+
+      -- Must be set up before dapui so the "disassembly" element is registered
+      require("dap-disasm").setup({
+        dapui_register = true,
+        winbar = { enabled = true },
+        ins_before_memref = 16,
+        ins_after_memref = 32,
+        columns = { "address", "instruction" },
+      })
 
       require("dapui").setup({
         layouts = {
@@ -20,7 +30,7 @@ return {
               { id = "stacks", size = 0.25 },
               { id = "watches", size = 0.25 },
             },
-            size = 60,
+            size = 50,
             position = "left",
           },
           {
@@ -37,6 +47,16 @@ return {
             size = 8,
             position = "bottom",
           },
+          -- Layout 4: on-demand disassembly. Defined AFTER the bottom layouts so it
+          -- only spans the area above them (i.e. stops where console/repl start),
+          -- and AFTER the left layout so it sits to the right of scopes/watches.
+          {
+            elements = {
+              { id = "disassembly", size = 1.0 },
+            },
+            size = 80,
+            position = "right",
+          },
         },
       })
 
@@ -48,6 +68,7 @@ return {
         dapui_stacks = "  Stacks",
         dapui_watches = "  Watches",
         dapui_console = "  Console",
+        dapui_disassembly = "  Disassembly",
       }
       local function apply_dapui_titles()
         vim.schedule(function()
@@ -68,15 +89,25 @@ return {
         end)
       end
 
-      require("nvim-dap-virtual-text").setup()
+      require("nvim-dap-virtual-text").setup({})
 
-      vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
-      vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
+      vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP: toggle breakpoint" })
+      vim.keymap.set("n", "<leader>dC", dap.run_to_cursor, { desc = "DAP: run to cursor" })
+
+      -- Toggle DAP UI
+      vim.keymap.set("n", "<leader>du", function()
+        require("dapui").toggle({})
+      end, { desc = "DAP: toggle UI" })
 
       -- Eval var under cursor
-      vim.keymap.set("n", "<space>?", function()
-        require("dapui").eval(nil, { enter = true })
-      end)
+      vim.keymap.set("n", "<leader>de", function()
+        require("dapui").eval()
+      end, { desc = "DAP: eval variable under cursor" })
+
+      -- Toggle the on-demand disassembly layout (layout 4); managed by dap-ui so it closes with the session
+      vim.keymap.set("n", "<leader>dD", function()
+        require("dapui").toggle({ layout = 4, reset = true })
+      end, { desc = "DAP: toggle disassembly" })
 
       vim.keymap.set("n", "<F1>", dap.continue)
       vim.keymap.set("n", "<F2>", dap.step_into)
