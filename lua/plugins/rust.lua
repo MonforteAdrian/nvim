@@ -6,30 +6,13 @@ return {
     version = "^7", -- Recommended
     lazy = false,
     init = function()
-      vim.g.rustaceanvim = {
-        -- Plugin configuration
-        tools = {},
-        -- LSP configuration
-        server = {
-          on_attach = function(client, bufnr)
-            -- you can also put keymaps in here
-          end,
-          default_settings = {
-            -- rust-analyzer language server configuration
-            ["rust-analyzer"] = {},
-          },
-        },
-        -- DAP configuration
-        dap = {},
-      }
+      require("config.rust").rustaceanvim()
     end,
   },
   {
     "saecki/crates.nvim",
     tag = "stable",
-    config = function()
-      require("crates").setup()
-    end,
+    opts = {},
   },
   {
     "nvim-neotest/neotest",
@@ -39,12 +22,8 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     priority = 1,
-    config = function()
-      require("neotest").setup({
-        adapters = {
-          require("rustaceanvim.neotest"),
-        },
-      })
+    opts = function()
+      return require("config.rust").neotest_opts()
     end,
   },
 }

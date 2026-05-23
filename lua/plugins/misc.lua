@@ -9,15 +9,12 @@ return {
   -- Utilites
   {
     "NvChad/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup({})
-    end,
+    main = "colorizer",
+    opts = {},
   },
   {
     "windwp/nvim-autopairs",
-    config = function()
-      require("nvim-autopairs").setup({})
-    end,
+    opts = {},
   },
   {
     "stevearc/conform.nvim",
@@ -34,9 +31,7 @@ return {
   },
   {
     "fei6409/log-highlight.nvim",
-    config = function()
-      require("log-highlight").setup({})
-    end,
+    opts = {},
   },
   -- markdown viewer
   {
@@ -44,25 +39,21 @@ return {
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
-    config = function()
-      -- Register copilot-chat filetype
-      require("render-markdown").setup({
-        file_types = { "markdown", "copilot-chat" },
-      })
-    end,
+    opts = {
+      file_types = { "markdown", "copilot-chat" },
+    },
   },
   -- Mermaid diagram viewer using web browser
   {
     "selimacerbas/markdown-preview.nvim",
     dependencies = { "selimacerbas/live-server.nvim" },
-    config = function()
-      require("markdown_preview").setup({
-        -- all optional; sane defaults shown
-        instance_mode = "takeover", -- "takeover" (one tab) or "multi" (tab per instance)
-        port = 0, -- 0 = auto (8421 for takeover, OS-assigned for multi)
-        open_browser = true,
-        debounce_ms = 300,
-      })
-    end,
+    main = "markdown_preview",
+    opts = {
+      -- all optional; sane defaults shown
+      instance_mode = "takeover", -- "takeover" (one tab) or "multi" (tab per instance)
+      port = 0, -- 0 = auto (8421 for takeover, OS-assigned for multi)
+      open_browser = true,
+      debounce_ms = 300,
+    },
   },
 }

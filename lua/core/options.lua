@@ -1,4 +1,3 @@
-local cmd = vim.cmd
 local indent = 4
 
 local opts = {
@@ -40,7 +39,3 @@ end
 -- Don't auto-continue comments when pressing <CR> (r) or `o`/`O` (o) in normal mode.
 -- `c` is left enabled so wrapped block comments still flow correctly while typing.
 vim.opt.formatoptions:remove({ "r", "o" })
-
--- Set other options
-local colorscheme = require("helpers.colorscheme")
-cmd.colorscheme(colorscheme)

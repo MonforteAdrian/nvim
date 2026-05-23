@@ -1,4 +1,4 @@
-local map = vim.keymap.set
+local map = require("core.util").map
 
 -- lazy
 map("n", "<leader>L", "<cmd>Lazy<cr>")

@@ -11,9 +11,19 @@ return {
     opts = {
       notifier = {
         enabled = true,
-        timeout = 3000,
+        timeout = 5500,
+        width = { min = 40, max = 0.8 },
+        height = { min = 1, max = 0.8 },
       },
       lazygit = { enabled = true },
+      styles = {
+        notification = {
+          wo = {
+            wrap = true,
+            linebreak = true,
+          },
+        },
+      },
     },
     keys = {
       {
